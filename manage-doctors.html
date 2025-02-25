@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Doctors - MediBooks</title>
+    <link href="styles/medibooks-styles.css" rel="stylesheet">
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
+    <style>
+        /* Sidebar styles */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding-top: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 15px;
+            display: block;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            border-radius: 5px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #34495e;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Apply the same styling to logout as the rest of the menu items */
+        #logout {
+            background-color: #34495e; /* Matching background color */
+            color: white; /* White text color */
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        #logout:hover {
+            background-color: #2c3e50; /* Darker shade on hover */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Same box-shadow as other items */
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .main-content h1 {
+            color: #34495e;
+        }
+
+        .doctor-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #34495e;
+            color: white;
+        }
+
+        .button {
+            background-color: #34495e;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #2c3e50;
+        }
+
+        .form-input {
+            margin-bottom: 15px;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .doctor-photo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .logo {
+            width: 30px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <ul>
+            <li><a href="admin-dashboard.html">Dashboard</a></li>
+            <li><a href="manage-appointments.html">Appointments</a></li>
+            <li><a href="manage-doctors.html">Doctors</a></li>
+            <li><a href="manage-users.html">Users</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="admin-login.html" id="logout">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="admin-dashboard.html">
+                    <img src="images /MediBooks-Logo-1.png" alt="MediBooks Logo"> Medibooks
+                </a>
+            </div>
+        </nav>
+
+        <h1>Manage Doctors</h1>
+
+        <!-- Add Doctor Form -->
+        <form id="add-doctor-form">
+            <label for="doctor-name">Doctor Name:</label>
+            <input type="text" id="doctor-name" class="form-input" required>
+
+            <label for="specialization">Specialization:</label>
+            <input type="text" id="specialization" class="form-input" required>
+
+            <label for="experience">Experience:</label>
+            <input type="text" id="experience" class="form-input" required>
+
+            <label for="availability">Availability:</label>
+            <select id="availability" class="form-input">
+                <option value="Available">Available</option>
+                <option value="Not Available">Not Available</option>
+            </select>
+
+            <label for="photo-upload">Doctor Photo:</label>
+            <input type="file" id="photo-upload" class="form-input" required>
+
+            <button type="submit" class="button">Add Doctor</button>
+        </form>
+
+        <h2>Doctors List</h2>
+        <table id="doctors-list">
+            <thead>
+                <tr>
+                    <th>Doctor Name</th>
+                    <th>Specialization</th>
+                    <th>Experience</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="doctor-table-body">
+                <!-- Doctors list will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initial doctors data
+        let doctors = [
+            { name: "Dr. John Smith", specialization: "Cardiologist", experience: "10 years", availability: "Available", photo: "images /doctor1.jpg" },
+            { name: "Dr. Emma Davis", specialization: "Neurologist", experience: "12 years", availability: "Not Available", photo: "images /doctor2.jpg" },
+            { name: "Dr. Michael Brown", specialization: "Pediatrician", experience: "8 years", availability: "Available", photo: "images /doctor3.jpg" },
+            { name: "Dr. Olivia Wilson", specialization: "Orthopedic Surgeon", experience: "15 years", availability: "Available", photo: "images /doctor4.jpg" },
+            { name: "Dr. Liam Johnson", specialization: "Dermatologist", experience: "7 years", availability: "Not Available", photo: "images /doctor5.jpg" },
+            { name: "Dr. Sophia Martinez", specialization: "Gynecologist", experience: "9 years", availability: "Available", photo: "images /doctor6.jpg" }
+        ];
+
+        // Function to display the doctor list
+        function displayDoctors() {
+            const tableBody = document.getElementById('doctor-table-body');
+            tableBody.innerHTML = ''; // Clear current list
+            doctors.forEach((doctor, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><img src="${doctor.photo}" alt="${doctor.name}" class="doctor-photo"> <h3>${doctor.name}</h3><p>Specialization: ${doctor.specialization}</p></td>
+                    <td>${doctor.specialization}</td>
+                    <td>${doctor.experience}</td>
+                    <td>
+                        <button class="button" onclick="editDoctor(${index})">Edit</button>
+                        <button class="button" onclick="deleteDoctor(${index})">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Function to add a doctor
+        function addDoctor(event) {
+            event.preventDefault(); // Prevent form submission
+            const name = document.getElementById('doctor-name').value;
+            const specialization = document.getElementById('specialization').value;
+            const experience = document.getElementById('experience').value;
+            const availability = document.getElementById('availability').value;
+            const photo = document.getElementById('photo-upload').files[0];
+
+            if (name && specialization && experience && availability && photo) {
+                // Create a new doctor object and add it to the doctors list
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    doctors.push({
+                        name,
+                        specialization,
+                        experience,
+                        availability,
+                        photo: e.target.result
+                    });
+                    displayDoctors(); // Refresh the list
+
+                    // Clear form fields
+                    document.getElementById('add-doctor-form').reset();
+
+                    // Show confirmation popup
+                    alert("Doctor added successfully!");
+                };
+                reader.readAsDataURL(photo);
+            } else {
+                alert("Please fill out all fields");
+            }
+        }
+
+        // Function to edit doctor
+        function editDoctor(index) {
+            const doctor = doctors[index];
+
+            // Prompt for all the details
+            const newName = prompt("Edit Doctor Name:", doctor.name);
+            const newSpecialization = prompt("Edit Specialization:", doctor.specialization);
+            const newExperience = prompt("Edit Experience:", doctor.experience);
+            const newAvailability = prompt("Edit Availability (Available/Not Available):", doctor.availability);
+
+            // Ensure we get valid values
+            if (newName !== null && newName !== "" &&
+                newSpecialization !== null && newSpecialization !== "" &&
+                newExperience !== null && newExperience !== "" &&
+                newAvailability !== null && newAvailability !== "") {
+
+                // Update the doctor's details in the array
+                doctor.name = newName;
+                doctor.specialization = newSpecialization;
+                doctor.experience = newExperience;
+                doctor.availability = newAvailability;
+
+                // Refresh the table to reflect the updated details
+                displayDoctors();
+            } else {
+                alert("All fields must be filled out to edit the doctor.");
+            }
+        }
+
+        // Function to delete doctor
+        function deleteDoctor(index) {
+            if (confirm("Are you sure you want to delete this doctor?")) {
+                doctors.splice(index, 1); // Remove the doctor from the array
+                displayDoctors(); // Refresh the list after delete
+            }
+        }
+
+        // Event listener for the form submission
+        const form = document.getElementById('add-doctor-form');
+        form.addEventListener('submit', addDoctor);
+
+        // Display initial list of doctors
+        displayDoctors();
+    </script>
+</body>
+</html>

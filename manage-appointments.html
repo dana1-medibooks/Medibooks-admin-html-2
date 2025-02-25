@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Appointments</title>
+    <link href="styles/medibooks-styles.css" rel="stylesheet">
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js" defer></script>
+    <style>
+        /* Your existing styles */
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+            color: white;
+            padding: 15px 30px;
+        }
+
+        .navbar a {
+            color: white;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .navbar a:hover {
+            color: #f39c12;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .navbar-brand img:hover {
+            transform: scale(1.1);
+        }
+
+        .sidebar {
+            background-color: #2c3e50;
+            color: white;
+            width: 250px;
+            position: fixed;
+            height: 100%;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #34495e;
+        }
+
+        #logout {
+            background-color: #34495e;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            display: block;
+            margin-top: 20px;
+        }
+
+        #logout:hover {
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #34495e;
+        }
+
+        .filters {
+            margin-bottom: 20px;
+        }
+
+        .filters label {
+            margin-right: 10px;
+        }
+
+        .filters select {
+            padding: 5px;
+            margin-right: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .approve-btn, .reschedule-btn, .cancel-btn {
+            background-color: #7f8c8d;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .approve-btn:hover, .reschedule-btn:hover, .cancel-btn:hover {
+            background-color: #616a70;
+        }
+
+        #reschedule-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            text-align: center;
+        }
+
+        #reschedule-modal input {
+            padding: 5px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="admin-dashboard.html">
+                <img src="image /MediBooks-Logo-1.png" alt="MediBooks Logo"> Medibooks
+            </a>
+        </div>
+    </nav>
+
+    <div class="sidebar">
+        <ul>
+            <li><a href="admin-dashboard.html">Dashboard</a></li>
+            <li><a href="manage-appointments.html">Appointments</a></li>
+            <li><a href="manage-doctors.html">Doctors</a></li>
+            <li><a href="manage-users.html">Users</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="admin-login.html" id="logout">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h1>Manage Appointments</h1>
+
+        <div class="filters">
+            <label for="doctor-filter">Filter by Doctor:</label>
+            <select id="doctor-filter">
+                <option value="Dr. John Smith">Dr. John Smith</option>
+                <option value="Dr. Emma Davis">Dr. Emma Davis</option>
+                <option value="Dr. Michael Brown">Dr. Michael Brown</option>
+                <option value="Dr. Olivia Wilson">Dr. Olivia Wilson</option>
+                <option value="Dr. Liam Johnson">Dr. Liam Johnson</option>
+                <option value="Dr. Sophia Martinez">Dr. Sophia Martinez</option>
+            </select>
+            <label for="status-filter">Filter by Status:</label>
+            <select id="status-filter">
+                <option value="All">All</option>
+                <option value="Approved">Approved</option>
+                <option value="Pending">Pending</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+
+        <table id="appointments-table">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-doctor="Dr. John Smith" data-status="Pending">
+                    <td>John Doe</td>
+                    <td>2025-02-20</td>
+                    <td class="status">Pending</td>
+                    <td>
+                        <button class="approve-btn">Approve</button>
+                        <button class="reschedule-btn">Reschedule</button>
+                        <button class="cancel-btn">Cancel</button>
+                    </td>
+                </tr>
+                <tr data-doctor="Dr. Emma Davis" data-status="Approved">
+                    <td>Jane Smith</td>
+                    <td>2025-02-22</td>
+                    <td class="status">Approved</td>
+                    <td>
+                        <button class="approve-btn">Approve</button>
+                        <button class="reschedule-btn">Reschedule</button>
+                        <button class="cancel-btn">Cancel</button>
+                    </td>
+                </tr>
+                <!-- Add more rows as necessary -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Reschedule Modal -->
+    <div id="reschedule-modal">
+        <div class="modal-content">
+            <h2>Reschedule Appointment</h2>
+            <label for="new-date">Select New Date:</label>
+            <input type="date" id="new-date">
+            <label for="new-time">Select New Time:</label>
+            <input type="time" id="new-time">
+            <button id="confirm-reschedule">Confirm</button>
+            <button id="cancel-reschedule">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Handle button clicks for actions
+        const approveButtons = document.querySelectorAll('.approve-btn');
+        approveButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const statusCell = this.closest('tr').querySelector('.status');
+                statusCell.textContent = 'Approved';
+                statusCell.style.color = 'green';
+            });
+        });
+
+        const cancelButtons = document.querySelectorAll('.cancel-btn');
+        cancelButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const statusCell = this.closest('tr').querySelector('.status');
+                statusCell.textContent = 'Cancelled';
+                statusCell.style.color = 'red';
+            });
+        });
+
+        const rescheduleButtons = document.querySelectorAll('.reschedule-btn');
+        const rescheduleModal = document.getElementById('reschedule-modal');
+        const confirmRescheduleButton = document.getElementById('confirm-reschedule');
+        const cancelRescheduleButton = document.getElementById('cancel-reschedule');
+        let selectedRow;
+
+        rescheduleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                selectedRow = this.closest('tr');
+                rescheduleModal.style.display = 'block';
+            });
+        });
+
+        confirmRescheduleButton.addEventListener('click', function() {
+            const newDate = document.getElementById('new-date').value;
+            const newTime = document.getElementById('new-time').value;
+            if (newDate && newTime) {
+                const statusCell = selectedRow.querySelector('.status');
+                statusCell.textContent = 'Rescheduled to ' + newDate + ' ' + newTime;
+                statusCell.style.color = 'orange';
+                rescheduleModal.style.display = 'none';
+            } else {
+                alert('Please select both a new date and time.');
+            }
+        });
+
+        cancelRescheduleButton.addEventListener('click', function() {
+            rescheduleModal.style.display = 'none';
+        });
+
+        // Filtering Functionality
+        const doctorFilter = document.getElementById('doctor-filter');
+        const statusFilter = document.getElementById('status-filter');
+        const rows = document.querySelectorAll('#appointments-table tbody tr');
+
+        function filterAppointments() {
+            const selectedDoctor = doctorFilter.value;
+            const selectedStatus = statusFilter.value;
+
+            rows.forEach(row => {
+                const doctor = row.getAttribute('data-doctor');
+                const status = row.getAttribute('data-status');
+                const statusCell = row.querySelector('.status');
+
+                let doctorMatches = selectedDoctor === 'All' || doctor === selectedDoctor;
+                let statusMatches = selectedStatus === 'All' || status === selectedStatus;
+
+                if (doctorMatches && statusMatches) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        doctorFilter.addEventListener('change', filterAppointments);
+        statusFilter.addEventListener('change', filterAppointments);
+
+        // Initial filter application on page load
+        filterAppointments();
+    </script>
+
+</body>
+</html>

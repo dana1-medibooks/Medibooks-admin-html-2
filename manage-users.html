@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users - Medibooks</title>
+    <link href="styles/medibooks-styles.css" rel="stylesheet">
+    <link href="js/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar with MediBooks Logo & Name -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="admin-dashboard.html">
+                <img src="images /MediBooks-Logo-1.png" alt="MediBooks Logo"> Medibooks
+            </a>
+        </div>
+    </nav>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="admin-dashboard.html">Dashboard</a></li>
+            <li><a href="manage-appointments.html">Appointments</a></li>
+            <li><a href="manage-doctors.html">Doctors</a></li>
+            <li><a href="manage-users.html">Users</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="admin-login.html" id="logout">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <h1>Manage Users</h1>
+
+        <!-- Search/Filter Section -->
+        <div class="search-filter">
+            <label for="status-filter">Filter by Status:</label>
+            <select id="status-filter">
+                <option value="">All</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+
+            <label for="email-filter">Search by Email:</label>
+            <input type="text" id="email-filter" placeholder="Search by email...">
+        </div>
+
+        <!-- User List Table -->
+        <h2>Registered Users</h2>
+        <table id="users-list" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Account Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="user-table-body">
+                <!-- Users list will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initial users data (sample)
+        let users = [
+            { name: "John Doe", email: "john.doe@example.com", status: "Active" },
+            { name: "Jane Smith", email: "jane.smith@example.com", status: "Inactive" },
+            { name: "Mark Johnson", email: "mark.johnson@example.com", status: "Active" },
+            { name: "Olivia Wilson", email: "olivia.wilson@example.com", status: "Inactive" },
+            { name: "Sophia Martinez", email: "sophia.martinez@example.com", status: "Active" }
+        ];
+
+        // Function to display the user list based on filters
+        function displayUsers() {
+            const tableBody = document.getElementById('user-table-body');
+            const statusFilter = document.getElementById('status-filter').value;
+            const emailFilter = document.getElementById('email-filter').value.toLowerCase();
+
+            tableBody.innerHTML = ''; // Clear current list
+
+            const filteredUsers = users.filter(user => {
+                const matchesStatus = statusFilter ? user.status === statusFilter : true;
+                const matchesEmail = user.email.toLowerCase().includes(emailFilter);
+                return matchesStatus && matchesEmail;
+            });
+
+            filteredUsers.forEach((user, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.status}</td>
+                    <td>
+                        <button onclick="toggleAccountStatus(${index})">${user.status === 'Active' ? 'Deactivate' : 'Reactivate'}</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Function to toggle account status (Activate/Deactivate)
+        function toggleAccountStatus(index) {
+            const user = users[index];
+            if (user.status === "Active") {
+                user.status = "Inactive";
+                alert(`${user.name}'s account has been deactivated.`);
+            } else {
+                user.status = "Active";
+                alert(`${user.name}'s account has been reactivated.`);
+            }
+            displayUsers(); // Refresh the list to show updated status
+        }
+
+        // Event listeners for filter inputs
+        document.getElementById('status-filter').addEventListener('change', displayUsers);
+        document.getElementById('email-filter').addEventListener('input', displayUsers);
+
+        // Display the initial user list
+        displayUsers();
+    </script>
+</body>
+</html>

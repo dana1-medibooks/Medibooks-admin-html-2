@@ -1,0 +1,561 @@
+/* Global Styles */
+body {
+    background-color: #f8f9fa;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar Styles */
+.navbar {
+    background: linear-gradient(90deg, #2c3e50, #34495e);
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.navbar a:hover {
+    color: #f39c12;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.1);
+}
+
+.navbar h2 {
+    font-size: 1.75rem;
+    color: white;
+    margin-left: 10px;
+}
+
+/* Content Styles */
+.content {
+    padding: 40px;
+}
+
+.card {
+    margin: 20px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* Button Styles */
+.btn-primary {
+    background: linear-gradient(90deg, #34495e, #2c3e50);
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: background 0.3s, transform 0.2s;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #2c3e50, #34495e);
+    transform: scale(1.05);
+}
+
+/* Search Bar */
+.search-bar {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    font-size: 1rem;
+    background-color: #ffffff;
+}
+
+/* Doctor Search Page Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.pagination a {
+    color: #2c3e50;
+    padding: 10px 15px;
+    margin: 0 8px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: 1px solid #dee2e6;
+    transition: background 0.3s;
+}
+
+.pagination a:hover {
+    background: #2c3e50;
+    color: white;
+}
+
+.table {
+    width: 100%;
+    margin: 30px 0;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.table th, .table td {
+    border: 1px solid #dee2e6;
+    padding: 16px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.table th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+/* Doctor Card Styles */
+.doctor-card {
+    text-align: center;
+    padding: 25px;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.doctor-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 2px solid #f39c12;
+}
+
+.doctor-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+    color: #2c3e50;
+}
+
+.doctor-card p {
+    color: #6c757d;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.btn-details {
+    background: #f39c12;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.3s;
+    display: inline-block;
+}
+
+.btn-details:hover {
+    background: #d35400;
+}
+
+/* Doctor Image Paths */
+.doctor1, .doctor2, .doctor3, .doctor4, .doctor5, .doctor6 {
+    background-size: cover;
+    background-position: center;
+}
+
+.doctor1 { background-image: url('../images /doctor1.jpg'); }
+.doctor2 { background-image: url('../images /doctor2.jpg'); }
+.doctor3 { background-image: url('../images /doctor3.jpg'); }
+.doctor4 { background-image: url('../images /doctor4.jpg'); }
+.doctor5 { background-image: url('../images /doctor5.jpg'); }
+.doctor6 { background-image: url('../images /doctor6.jpg'); }
+
+/* Appointment Form Styles */
+.appointment-form {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-form input, .appointment-form select, .appointment-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+/* Review Form Styles */
+.review-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+.review-form button {
+    background: #f39c12;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.review-form button:hover {
+    background: #d35400;
+}
+
+/* Admin Login Styles */
+.admin-login-container {
+    max-width: 420px;
+    margin: 120px auto;
+    padding: 35px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.admin-login-container h2 {
+    color: #00B8D4;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+}
+
+/* Admin Dashboard Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #34495e;
+    color: white;
+    padding-top: 60px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 18px;
+    text-align: left;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    transition: background 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #2c3e50;
+}
+
+.sidebar #logout {
+    margin-top: auto;
+    background-color: #e74c3c;
+    padding: 12px;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.sidebar #logout:hover {
+    background-color: #c0392b;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 40px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .navbar a {
+        margin: 10px 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .sidebar {
+        width: 200px;
+    }
+
+    .overview-cards {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .overview-cards .card {
+        width: 100%;
+    }
+}
+
+/* Login Page Styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Centering content */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.logo-container {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container img {
+    width: 100%;
+    height: auto;
+}
+
+h1 {
+    color: #007bff;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Form card */
+.form-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-links {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.form-links a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 14px;
+}
+
+.form-links a:hover {
+    text-decoration: underline;
+}
+
+/* Button styles */
+.btn-primary {
+    background: linear-gradient(90deg, #34495e, #2c3e50);
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: background 0.3s, transform 0.2s;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #2c3e50, #34495e);
+    transform: scale(1.05);
+}
+/* Appointment Management Page Styles */
+.appointment-management-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-management-container h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.appointment-list {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.appointment-list th, .appointment-list td {
+    border: 1px solid #dee2e6;
+    padding: 15px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.appointment-list th {
+    background-color: #34495e;
+    color: white;
+}
+
+.appointment-list td {
+    background-color: #f8f9fa;
+}
+
+.appointment-list td .status {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.appointment-list td .status.pending {
+    color: #f39c12;
+}
+
+.appointment-list td .status.cancelled {
+    color: #e74c3c;
+}
+
+.appointment-list td .status.completed {
+    color: #2ecc71;
+}
+
+/* Appointment Action Buttons */
+.btn-manage {
+    background: #f39c12;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-manage:hover {
+    background: #d35400;
+}
+
+/* Appointment Search Bar */
+.appointment-search {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 30px;
+    background-color: #ffffff;
+}
+
+/* Add Appointment Form */
+.add-appointment-form {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-appointment-form input,
+.add-appointment-form select,
+.add-appointment-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.add-appointment-form button {
+    background: #f39c12;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: background 0.3s;
+    cursor: pointer;
+}
+
+.add-appointment-form button:hover {
+    background: #d35400;
+}
+
+/* Responsive Design for Appointment Management */
+@media (max-width: 768px) {
+    .appointment-management-container {
+        padding: 20px;
+    }
+
+    .appointment-list th, .appointment-list td {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .add-appointment-form input,
+    .add-appointment-form select,
+    .add-appointment-form textarea {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .appointment-search {
+        font-size: 0.9rem;
+    }
+}
